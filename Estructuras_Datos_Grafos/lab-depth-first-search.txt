@@ -1,0 +1,35 @@
+** start of main.py **
+
+def dfs(matrix, start_node):
+    # n es el número total de nodos (filas en la matriz)
+    n = len(matrix)
+    
+    # 1. Usamos una pila (stack) para seguir el principio LIFO (Last-In-First-Out)
+    # Inicialmente contiene solo el nodo de partida
+    stack = [start_node]
+    
+    # 2. Lista para rastrear los nodos que ya hemos visitado
+    visited = []
+    
+    # 3. Mientras la pila no esté vacía, seguimos explorando
+    while stack:
+        # Extraemos el último nodo agregado (el más profundo)
+        current_node = stack.pop()
+        
+        # Si el nodo aún no ha sido visitado:
+        if current_node not in visited:
+            # Lo marcamos como visitado agregándolo a nuestra lista
+            visited.append(current_node)
+            
+            # 4. Buscamos sus vecinos en la matriz de adyacencia
+            # Iteramos sobre la fila correspondiente al nodo actual
+            for neighbor, is_connected in enumerate(matrix[current_node]):
+                # Si hay una conexión (1) y el vecino no ha sido visitado
+                if is_connected == 1 and neighbor not in visited:
+                    stack.append(neighbor)
+                    
+    # 5. Retornamos la lista de todos los nodos alcanzables
+    return visited
+
+** end of main.py **
+

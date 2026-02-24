@@ -1,0 +1,39 @@
+** start of main.py **
+
+def dfs_n_queens(n):
+    # Historia de usuario: Si n < 1, devolver lista vacía
+    if n < 1:
+        return []
+
+    res = []
+    
+    def is_safe(board, row, col):
+        # Verifica si hay otra reina en la misma columna o diagonales
+        for i in range(row):
+            # board[i] == col: Misma columna
+            # abs(board[i] - col) == abs(i - row): Misma diagonal
+            if board[i] == col or abs(board[i] - col) == abs(i - row):
+                return False
+        return True
+
+    def solve(row, current_board):
+        # Caso base: Si colocamos reinas en todas las filas, guardamos la solución
+        if row == n:
+            res.append(list(current_board))
+            return
+
+        for col in range(n):
+            if is_safe(current_board, row, col):
+                current_board[row] = col  # Colocar reina
+                solve(row + 1, current_board) # Explorar siguiente fila
+                # No es necesario "limpiar" explícitamente porque sobrescribimos
+                # el valor en la siguiente iteración del bucle.
+
+    # Inicializamos un tablero vacío de tamaño n
+    solve(0, [0] * n)
+    return res 
+
+    
+
+** end of main.py **
+

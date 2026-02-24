@@ -1,0 +1,24 @@
+** start of main.py **
+
+def selection_sort(lista):
+    n = len(lista)
+    # Recorremos toda la lista (excepto el último elemento que ya estará ordenado)
+    for i in range(n):
+        # Suponemos que el elemento actual es el mínimo de la porción no ordenada
+        indice_minimo = i
+        
+        # Buscamos el elemento más pequeño en el resto de la lista (porción no ordenada)
+        for j in range(i + 1, n):
+            if lista[j] < lista[indice_minimo]:
+                indice_minimo = j
+        
+        # Intercambiamos solo si el mínimo encontrado no es el elemento actual
+        # Esto cumple con la historia de evitar intercambios innecesarios
+        if indice_minimo != i:
+            lista[i], lista[indice_minimo] = lista[indice_minimo], lista[i]
+            
+    # Devolvemos la lista modificada en el lugar
+    return lista
+
+** end of main.py **
+

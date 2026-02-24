@@ -1,0 +1,46 @@
+** start of main.py **
+
+def hanoi_solver(n):
+    # Representación inicial de las varillas
+    # Varilla A: [n, n-1, ..., 1], Varilla B: [], Varilla C: []
+    rods = {
+        'A': list(range(n, 0, -1)),
+        'B': [],
+        'C': []
+    }
+    
+    # Lista para almacenar los estados de las varillas en cada movimiento
+    history = []
+
+    def save_state():
+        # Crea una cadena con el formato: [3, 2, 1] [] []
+        state = f"{rods['A']} {rods['B']} {rods['C']}"
+        history.append(state)
+
+    def move_disk(n, source, target, auxiliary):
+        if n > 0:
+            # Paso 1: Mover n-1 discos del origen al auxiliar
+            move_disk(n - 1, source, auxiliary, target)
+            
+            # Paso 2: Mover el disco restante del origen al destino
+            disk = rods[source].pop()
+            rods[target].append(disk)
+            save_state()
+            
+            # Paso 3: Mover los n-1 discos del auxiliar al destino
+            move_disk(n - 1, auxiliary, target, source)
+
+    # Guardamos el estado inicial antes de empezar a mover
+    save_state()
+    
+    # Resolvemos recursivamente
+    move_disk(n, 'A', 'C', 'B')
+    
+    # Devolvemos todos los estados unidos por saltos de línea
+    return "\n".join(history)
+
+# Ejemplo de uso:
+# print(hanoi_solver(3))
+
+** end of main.py **
+

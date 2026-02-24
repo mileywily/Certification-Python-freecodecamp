@@ -1,0 +1,28 @@
+** start of main.py **
+
+def fibonacci(n):
+    sequence =[0,1]
+    primer=0
+    segundo =1
+    if n==0:
+        return 0
+    if n==1:
+        return 1
+    if n > 1:
+        for x in range(n+1):
+            if x not in (0,1):
+              aux = primer + segundo
+              sequence.append(aux)
+              primer = segundo
+              segundo = aux
+              print(sequence) 
+        return aux
+
+print (fibonacci(5))
+
+
+
+
+
+** end of main.py **
+

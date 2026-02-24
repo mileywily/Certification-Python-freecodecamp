@@ -1,0 +1,45 @@
+** start of main.py **
+
+class HashTable:
+    def __init__(self):
+        self.collection ={}
+    def hash(self,string):
+        hash_sum = 0
+        # Recorremos cada carácter de la cadena
+        for char in string:
+            # Sumamos el valor Unicode del carácter al total
+            hash_sum += ord(char)
+        return hash_sum
+    def add(self, key, value):
+        h = self.hash(key)
+        
+        # Si el valor hash no existe en collection, creamos un nuevo diccionario anidado
+        if h not in self.collection:
+            self.collection[h] = {}
+        
+        # Almacenamos el par clave-valor dentro del diccionario anidado
+        # Esto maneja colisiones automáticamente sustituyendo o añadiendo en el nivel interno
+        self.collection[h][key] = value
+
+    def remove(self,key):
+        h = self.hash(key)
+        
+        # Verificamos si el hash existe y si la clave específica está dentro de ese grupo
+        if h in self.collection and key in self.collection[h]:
+            # Eliminamos el par clave-valor específico
+            del self.collection[h][key]
+            
+            # Limpieza opcional: si el diccionario anidado queda vacío, eliminamos la entrada del hash
+            if not self.collection[h]:
+                del self.collection[h]
+                
+    def lookup(self,key):
+        h = self.hash(key)
+        
+        # Buscamos de forma segura la clave dentro del sub-diccionario
+        if h in self.collection and key in self.collection[h]:
+            return self.collection[h][key]
+        return None
+
+** end of main.py **
+
